@@ -21,22 +21,22 @@ app.use('/auth', authController)
 app.use('/blog', blogController)
 
 // multer
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, 'public/images')
-//     },
-//     filename: function (req, file, cb) {
-//         cb(null, req.body.filename)
-//     }
-// })
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/images')
+    },
+    filename: function (req, file, cb) {
+        cb(null, req.body.filename)
+    }
+})
 
-// const upload = multer({
-//     storage: storage
-// })
+const upload = multer({
+    storage: storage
+})
 
-// app.post('/upload', upload.single("image"), async (req, res) => {
-//     return res.status(200).json({ msg: "Successfully uploaded" })
-// })
+app.post('/upload', upload.single("image"), async (req, res) => {
+    return res.status(200).json({ msg: "Successfully uploaded" })
+})
 
 // connect server
 app.listen(process.env.PORT, () => console.log('Server has been started successfully'))
